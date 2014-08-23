@@ -9,3 +9,7 @@ scalacOptions ++= Seq("-feature","-deprecation")
 scalaJSSettings
 
 libraryDependencies += "com.greencatsoft" %%% "scalajs-angular" % "0.1-jk-SNAPSHOT"
+
+ScalaJSKeys.jsDependencies += ProvidedJS / "base.js"
+
+skip in ScalaJSKeys.packageJSDependencies := false
