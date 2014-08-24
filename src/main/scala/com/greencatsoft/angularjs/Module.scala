@@ -1,6 +1,8 @@
 package com.greencatsoft.angularjs
 
+import com.greencatsoft.angularjs.controller.ControllerFactory
 import com.greencatsoft.angularjs.directive.Directive
+import com.greencatsoft.angularjs.scope.Scope
 
 import scala.scalajs.js
 import scala.scalajs.js.Any.{ fromFunction10, fromString }
@@ -62,6 +64,31 @@ class ModuleProxy(val module: Module) {
 
     fn(args)
   }
+
+
+  def controllerFactory[T<:js.Object](factory: ControllerFactory) : this.type = {
+    require(factory != null, "Missing argument 'factory'.")
+
+     val handler = (scope: Scope with factory.DataType,
+                    a1: js.Any, a2: js.Any, a3: js.Any, a4: js.Any, a5: js.Any,
+                    a6: js.Any, a7: js.Any, a8: js.Any, a9: js.Any) => {
+
+       if(!factory._injected) {
+         factory.inject(Seq(a1, a2, a3, a4, a5, a6, a7, a8, a9))
+         factory._injected = true
+       }
+       factory.controller.apply(scope,scope.asInstanceOf[js.Dynamic])
+    }
+
+    val args = js.Array[js.Any]("$scope")
+    factory.dependencies.foreach(d=> args.push(d))
+    args.push(handler)
+
+    module.controller(factory.name,args)
+
+    this
+  }
+
 
   def directive(directives: Directive*): this.type = {
     require(directives != null, "Missing argument 'directives'.")

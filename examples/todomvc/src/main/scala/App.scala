@@ -1,5 +1,5 @@
 import com.greencatsoft.angularjs.{Module, angular}
-import controllers.TodoCtrl
+import controllers.TodoCtrlFactory
 import directives.{TodoFocusDirective, TodoEscapeDirective}
 
 import scala.scalajs.js
@@ -16,6 +16,6 @@ object App {
   // Module(app) returns a proxy for our module that provides the bridge for integration
   // between standard AngularJS and our typesafe + 'fluent' scalajs-angular bindings
   Module(app)
-    .controller(TodoCtrl)
+    .controllerFactory(TodoCtrlFactory)
     .directive(TodoEscapeDirective, TodoFocusDirective)
 }

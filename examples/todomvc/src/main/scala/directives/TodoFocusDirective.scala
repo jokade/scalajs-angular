@@ -1,7 +1,7 @@
 package directives
 
 import com.greencatsoft.angularjs.directive.AbstractDirective
-import com.greencatsoft.angularjs.services.TimeoutAware
+import com.greencatsoft.angularjs.timeout.TimeoutAware
 
 import scala.scalajs.js
 import scala.scalajs.js.UndefOr
